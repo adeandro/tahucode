@@ -35,7 +35,7 @@ class Auth extends CI_Controller {
 			}else{
 				$this->session->set_flashdata('error', 'Username or password is incorrect, Please try again');
 
-				redirect('auth/login','refresh');
+				redirect('login','refresh');
 			}
 		}
 

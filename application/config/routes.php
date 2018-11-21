@@ -51,9 +51,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // auth route
+$route['login'] = 'auth/login';
 
 
+// user route
+$route['post/create']				= 'user/create';
+$route['post/save']					= 'user/save';
+$route['post/category']				= 'user/category';
+$route['category/save']				= 'user/category_save';
+$route['category/edit']				= 'user/category_edit';
+$route['category/delete/(:num)']	= 'user/category_delete/$1';
 
-$route['default_controller'] = 'welcome';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['default_controller'] 		= 'welcome';
+$route['404_override']				= '';
+$route['translate_uri_dashes']		= FALSE;

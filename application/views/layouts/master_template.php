@@ -11,7 +11,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a href="#">
-					<img style="max-width: 150px;" src="<?php echo base_url('assets/img/brand.png') ?>" alt="TAHUCode">
+					<img style="max-width: 150px; padding-top: 5px;" src="<?php echo base_url('assets/img/brand.png') ?>" alt="TAHUCode">
 				</a>
 			</div>
 		</div>

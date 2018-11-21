@@ -8,7 +8,7 @@
 			</div>
 		<?php endif ?>
 		<div class="well">
-			<form action="<?php echo base_url('auth/login'); ?>" method="post">
+			<form action="<?php echo base_url('login'); ?>" method="post">
 				<div class="form-group">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Username.." name="username" value="<?php echo set_value('username') ?>">
@@ -17,7 +17,7 @@
 				</div>
 				<div class="form-group">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Password.." name="password">
+						<input type="password" class="form-control" placeholder="Password.." name="password">
 						<div class="input-group-addon"><i class="fa fa-lock"></i></div>
 					</div>
 				</div>
