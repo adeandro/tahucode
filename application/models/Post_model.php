@@ -9,9 +9,38 @@ class Post_model extends CI_Model {
 		return $data;
 	}
 
+	public function get_post_by_slug($slug)
+	{
+		$this->db->where('slug',$slug);
+		$data = $this->db->get('posts');
+		return $data;
+	}
+
+	public function get_post_by_id($id_post)
+	{
+		$this->db->where('id_post', $id_post);
+		$data = $this->db->get('posts');
+		return $data;
+	}
+
+	public function delete($id_post)
+	{
+		$this->db->where('id_post', $id_post);
+		$this->db->delete('posts');
+		
+	}
+
 	public function save_post($data)
 	{
 		$this->db->insert('posts',$data);
+		return TRUE;
+	}
+
+	public function update_post($data, $slug)
+	{
+		$this->db->set($data);
+		$this->db->where('slug', $slug);
+		$this->db->update('posts');
 		return TRUE;
 	}
 

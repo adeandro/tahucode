@@ -15,9 +15,10 @@
 		<hr>
 	</div>
 	<div class="panel-body">
-		<form action="<?php echo base_url('/post/save') ?>" method="post">
+		<form action="<?php echo base_url('/post/create') ?>" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<h4 for="title">Title :</h4>
+				<input type="hidden" name="publish">
 				<input type="text" class="form-control" name="title" placeholder="Input title here..." value="<?php echo set_value('title'); ?>">
 			</div>
 			<div class="form-group">
@@ -34,10 +35,16 @@
 					 ?>
 				</select>
 			</div>
-			
+			<div class="form-group">
+				<h4>Choose header image	:</h4>
+				<input type="file" name="header_image" class="form-control">
+			</div>
+			<br>
+
 			<div class="form-group">
 				<button class="btn btn-info" name="back"></i> Back & save to draft</button>
-				<button class="btn btn-primary"><i class="fa fa-arrow-up"></i> Publish</button>
+				<button class="btn btn-primary" type="submit"><i class="fa fa-arrow-up"></i> Publish</button>
+				<!-- <button class="btn btn-default">previev</button> -->
 			</div>
 		</form>
 	</div>

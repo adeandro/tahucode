@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
+	protected $publish;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -37,36 +39,104 @@ class User extends CI_Controller {
 		$data = [];
 		$data['categories']= $this->post_model->get_categories();
 
+		// set validation 
+		$this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('content', 'Content', 'required');
+		// $this->form_validation->set_rules('category', 'Category', 'required');
+		// $this->form_validation->set_rules('header_image', 'Header Image', 'required');
+
+
+		if ($this->form_validation->run() == TRUE) {
+
+			$config['upload_path'] 	= './assets/img/posts/';
+			$config['allowed_types']= 'gif|jpg|png';
+			$config['max_size']  	= '10000';
+			$config['max_width']  	= '2000';
+			$config['max_height']  	= '2000';
+			
+			$this->load->library('upload', $config);
+			
+			if ( ! $this->upload->do_upload('header_image')){
+				$error = array('error' => $this->upload->display_errors());
+				$this->session->set_flashdata('error', $error);
+				redirect('post/create','refresh');
+			}
+			else{
+				$file_info = $this->upload->data();
+
+				$data = [
+						'title' 		=> $this->input->post('title'),
+						'content' 		=> $this->input->post('content'),
+						'category' 		=> implode("|", $this->input->post('category')),
+						'timestamp'		=> now(),
+						'published' 	=> 1,
+						'id_user' 		=> $this->session->userdata('sess_id'),
+						'slug' 			=> url_title($this->input->post('title'),'-',TRUE).".html",
+						'header_image'	=> $file_info['file_name']
+					];
+
+					if ($this->post_model->save_post($data) == TRUE) {
+						$this->session->set_flashdata('success', 'Success publish new post');
+						redirect('user/post','refresh');
+					}else{
+						$this->session->set_flashdata('error', 'Failed publish new post');
+						redirect('post/create','refresh');
+					}
+			}
+
+			
+		}
+
 		$this->template->set('title', 'Create new post');
 		$this->template->load('user_template', 'content', 'user/create', $data);
 	}
 
 	public function save()
 	{	
-
-		$data = [
-				'title' 	=> $this->input->post('title'),
-				'content' 	=> $this->input->post('content'),
-				'category' 	=> implode("|", $this->input->post('category')),
-				'date' 		=> date('Y-m-d'),
-				'published' => 1,
-				'id_user' 	=> $this->session->userdata('sess_id'),
-				'slug' 		=> url_title($this->input->post('title'),'-',TRUE)
-			];
-
-
-
-			if ($this->post_model->save_post($data) == TRUE) {
-				$this->session->set_flashdata('success', 'Success publish new post');
-				redirect('user/post','refresh');
-			}else{
-				$this->session->set_flashdata('error', 'Failed publish new post');
-				redirect('post/create','refresh');
-			}
+		
 
 		// redirect('post/create','refresh');
 	}
 
+	public function edit($slug)
+	{
+		$data = [];
+
+		$data['post'] 		= $this->post_model->get_post_by_slug($slug)->row_array();
+		$data['categories'] = $this->post_model->get_categories()->result();
+
+		
+
+		$this->template->set('title', $slug);
+		$this->template->load('user_template','content','user/edit', $data);
+	}
+
+	public function delete($id_post)
+	{
+		$data = $this->post_model->get_post_by_id($id_post)->row_array();
+		
+		if (file_exists('./assets/img/posts/'.$data['header_image'])) {
+
+			unlink('./assets/img/posts/'.$data['header_image']);
+			
+			if ($this->post_model->delete($id_post)) {
+				$this->session->set_flashdata('success', 'Success delete data');
+				redirect('user/post','refresh');
+			}else{
+				$this->session->set_flashdata('error', 'Failed delete data');
+				redirect('user/post','refresh');
+			}
+		}else{
+			if ($this->post_model->delete($id_post)) {
+				$this->session->set_flashdata('success', 'Success delete data');
+				redirect('user/post','refresh');
+			}else{
+				$this->session->set_flashdata('error', 'Failed delete data');
+				redirect('user/post','refresh');
+			}
+		}
+
+	}
 
 	// category operatin
 

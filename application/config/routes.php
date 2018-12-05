@@ -57,6 +57,9 @@ $route['login'] = 'auth/login';
 // user route
 $route['post/create']				= 'user/create';
 $route['post/save']					= 'user/save';
+$route['post/edit/(:any)']			= 'user/edit/$1';
+$route['post/update']				= 'user/update';
+$route['post/delete/(:num)']		= 'user/delete/$1';
 $route['post/category']				= 'user/category';
 $route['category/save']				= 'user/category_save';
 $route['category/edit']				= 'user/category_edit';
