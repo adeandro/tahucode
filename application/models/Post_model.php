@@ -5,6 +5,7 @@ class Post_model extends CI_Model {
 
 	public function get_posts()
 	{
+		$this->db->order_by('id_post','DESC');
 		$data = $this->db->get('posts');
 		return $data;
 	}
@@ -19,6 +20,14 @@ class Post_model extends CI_Model {
 	public function get_post_by_id($id_post)
 	{
 		$this->db->where('id_post', $id_post);
+		$data = $this->db->get('posts');
+		return $data;
+	}
+
+	public function get_last_post()
+	{
+		$this->db->order_by('id_post', 'DESC');
+		$this->db->limit(4,1);
 		$data = $this->db->get('posts');
 		return $data;
 	}

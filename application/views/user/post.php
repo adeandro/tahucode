@@ -31,7 +31,7 @@
 							
 								echo "<tr>
 							<td>". $no++ ."</td>
-							<td><a href='". base_url('post/edit/'.$post->slug) ."'><i class='fa fa-pencil'></i> ". substr($post->title, 0,40) ."</a></td>
+							<td><a href='". base_url('post/show/'.$post->slug) ."'>". substr($post->title, 0,40) ."</a></td>
 							<td>". mdate('%d-%M-%Y, %h:%i', $post->timestamp) ."</td>
 							<td><p class='label label-success'>Published</p></td>
 							<td>";
@@ -40,7 +40,8 @@
 							 	}
 							 echo "</td>
 							<td align='center'>
-								<a href='#modal". $post->id_post ."' data-toggle='modal' class='btn btn-xs btn-warning'><i class='fa fa-trash'></i></a>
+								<a href='". base_url('post/edit/'.$post->slug) ."' class='btn btn-info btn-sm'><i class='fa fa-pencil'></i></a>
+								<a href='#modal". $post->id_post ."' data-toggle='modal' class='btn btn-sm btn-warning'><i class='fa fa-trash'></i></a>
 							</td>
 						</tr>";
 							

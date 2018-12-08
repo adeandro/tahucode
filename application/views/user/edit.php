@@ -1,7 +1,7 @@
 	<h3>Edit post : <small><?php echo $post['title']; ?></small></h3>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<form action="<?php base_url('post/update') ?>" method="post" enctype="multipart/form-data">
+		<form action="<?php echo base_url('post/update/'.$post['slug']) ?>" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<h4>Title</h4>
 				<input type="text" class="form-control" name="title" value="<?php echo $post['title']; ?>">

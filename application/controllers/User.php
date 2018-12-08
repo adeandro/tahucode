@@ -34,6 +34,16 @@ class User extends CI_Controller {
 		$this->template->load('user_template','content','user/post', $data);
 	}
 
+	public function show($slug)
+	{
+		$data 			= [];
+		$data['post'] 	= $this->post_model->get_post_by_slug($slug)->row_array();
+
+		$this->template->set('title', $slug);
+		$this->template->load('user_template','content','user/show', $data);
+
+	}
+
 	public function create()
 	{
 		$data = [];
@@ -91,24 +101,33 @@ class User extends CI_Controller {
 		$this->template->load('user_template', 'content', 'user/create', $data);
 	}
 
-	public function save()
-	{	
-		
-
-		// redirect('post/create','refresh');
-	}
-
 	public function edit($slug)
 	{
 		$data = [];
 
 		$data['post'] 		= $this->post_model->get_post_by_slug($slug)->row_array();
-		$data['categories'] = $this->post_model->get_categories()->result();
-
-		
+		$data['categories'] = $this->post_model->get_categories()->result();		
 
 		$this->template->set('title', $slug);
 		$this->template->load('user_template','content','user/edit', $data);
+	}
+
+	public function update($slug)
+	{
+		$update_data = [
+			'title' 	=> $this->input->post('title'),
+			'content'	=> $this->input->post('content'),
+			'category'	=> implode("|", $this->input->post('category')),
+			'slug'		=> url_title($this->input->post('title'),'-', TRUE).".html"
+		];
+
+		if ($this->post_model->update_post($update_data, $slug)) {
+			$this->session->set_flashdata('success', 'Success updating post');
+			redirect('user/post','refresh');
+		}else{
+			$this->session->set_flashdata('error', 'Error updating post');
+			redirect('post/edit/$slug','refresh');
+		}
 	}
 
 	public function delete($id_post)

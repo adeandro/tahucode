@@ -58,13 +58,14 @@ $route['login'] = 'auth/login';
 $route['post/create']				= 'user/create';
 $route['post/save']					= 'user/save';
 $route['post/edit/(:any)']			= 'user/edit/$1';
-$route['post/update']				= 'user/update';
+$route['post/show/(:any)']			= 'user/show/$1';
+$route['post/update/(:any)']		= 'user/update/$1';
 $route['post/delete/(:num)']		= 'user/delete/$1';
 $route['post/category']				= 'user/category';
 $route['category/save']				= 'user/category_save';
 $route['category/edit']				= 'user/category_edit';
 $route['category/delete/(:num)']	= 'user/category_delete/$1';
 
-$route['default_controller'] 		= 'welcome';
+$route['default_controller'] 		= 'home';
 $route['404_override']				= '';
 $route['translate_uri_dashes']		= FALSE;

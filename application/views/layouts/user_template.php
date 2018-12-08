@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/bootstrap.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/paper.bootstrap.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/font-awesome-4.6.3/css/font-awesome.css'); ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/highlight/styles/monokai-sublime.css'); ?>">
 
 </head>
 <body>
@@ -39,11 +40,15 @@
 	<script src="<?php echo base_url('assets/jquery-3.1.1.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/bootstrap-3.3.7/js/bootstrap.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/ckeditor/ckeditor.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/highlight/highlight.pack.js'); ?>"></script>
 	<script>
+		hljs.initHighlightingOnLoad();
 		jQuery(document).ready(function($) {
 
-			CKEDITOR.replace('content');
 		});
+		CKEDITOR.replace('content');
+
+
 	</script>
 </body>
 </html>

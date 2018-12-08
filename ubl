@@ -1,0 +1,100 @@
+[1mdiff --git a/application/config/routes.php b/application/config/routes.php[m
+[1mindex 8bbaf5d..1486eb9 100644[m
+[1m--- a/application/config/routes.php[m
+[1m+++ b/application/config/routes.php[m
+[36m@@ -58,6 +58,7 @@[m [m$route['login'] = 'auth/login';[m
+ $route['post/create']				= 'user/create';[m
+ $route['post/save']					= 'user/save';[m
+ $route['post/edit/(:any)']			= 'user/edit/$1';[m
+[32m+[m[32m$route['post/show/(:any)']			= 'user/show/$1';[m
+ $route['post/update']				= 'user/update';[m
+ $route['post/delete/(:num)']		= 'user/delete/$1';[m
+ $route['post/category']				= 'user/category';[m
+[1mdiff --git a/application/controllers/User.php b/application/controllers/User.php[m
+[1mindex bca3ac5..ca5259f 100644[m
+[1m--- a/application/controllers/User.php[m
+[1m+++ b/application/controllers/User.php[m
+[36m@@ -34,6 +34,16 @@[m [mclass User extends CI_Controller {[m
+ 		$this->template->load('user_template','content','user/post', $data);[m
+ 	}[m
+ [m
+[32m+[m	[32mpublic function show($slug)[m
+[32m+[m	[32m{[m
+[32m+[m		[32m$data 			= [];[m
+[32m+[m		[32m$data['post'] 	= $this->post_model->get_post_by_slug($slug)->row_array();[m
+[32m+[m
+[32m+[m		[32m$this->template->set('title', $slug);[m
+[32m+[m		[32m$this->template->load('user_template','content','user/show', $data);[m
+[32m+[m
+[32m+[m	[32m}[m
+[32m+[m
+ 	public function create()[m
+ 	{[m
+ 		$data = [];[m
+[36m@@ -91,13 +101,6 @@[m [mclass User extends CI_Controller {[m
+ 		$this->template->load('user_template', 'content', 'user/create', $data);[m
+ 	}[m
+ [m
+[31m-	public function save()[m
+[31m-	{	[m
+[31m-		[m
+[31m-[m
+[31m-		// redirect('post/create','refresh');[m
+[31m-	}[m
+[31m-[m
+ 	public function edit($slug)[m
+ 	{[m
+ 		$data = [];[m
+[1mdiff --git a/application/views/layouts/user_template.php b/application/views/layouts/user_template.php[m
+[1mindex 3e048f7..3869dc9 100644[m
+[1m--- a/application/views/layouts/user_template.php[m
+[1m+++ b/application/views/layouts/user_template.php[m
+[36m@@ -6,6 +6,7 @@[m
+ 	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/bootstrap.css'); ?>">[m
+ 	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/paper.bootstrap.min.css'); ?>">[m
+ 	<link rel="stylesheet" href="<?php echo base_url('assets/font-awesome-4.6.3/css/font-awesome.css'); ?>">[m
+[32m+[m	[32m<link rel="stylesheet" href="<?php echo base_url('assets/highlight/styles/monokai-sublime.css'); ?>">[m
+ [m
+ </head>[m
+ <body>[m
+[36m@@ -39,11 +40,15 @@[m
+ 	<script src="<?php echo base_url('assets/jquery-3.1.1.js'); ?>"></script>[m
+ 	<script src="<?php echo base_url('assets/bootstrap-3.3.7/js/bootstrap.js'); ?>"></script>[m
+ 	<script src="<?php echo base_url('assets/ckeditor/ckeditor.js'); ?>"></script>[m
+[32m+[m	[32m<script src="<?php echo base_url('assets/highlight/highlight.pack.js'); ?>"></script>[m
+ 	<script>[m
+[32m+[m		[32mhljs.initHighlightingOnLoad();[m
+ 		jQuery(document).ready(function($) {[m
+ [m
+[31m-			CKEDITOR.replace('content');[m
+ 		});[m
+[32m+[m		[32mCKEDITOR.replace('content');[m
+[32m+[m
+[32m+[m
+ 	</script>[m
+ </body>[m
+ </html>[m
+\ No newline at end of file[m
+[1mdiff --git a/application/views/user/post.php b/application/views/user/post.php[m
+[1mindex c0a3863..5f87f60 100644[m
+[1m--- a/application/views/user/post.php[m
+[1m+++ b/application/views/user/post.php[m
+[36m@@ -31,7 +31,7 @@[m
+ 							[m
+ 								echo "<tr>[m
+ 							<td>". $no++ ."</td>[m
+[31m-							<td><a href='". base_url('post/edit/'.$post->slug) ."'><i class='fa fa-pencil'></i> ". substr($post->title, 0,40) ."</a></td>[m
+[32m+[m							[32m<td><a href='". base_url('post/show/'.$post->slug) ."'>". substr($post->title, 0,40) ."</a></td>[m
+ 							<td>". mdate('%d-%M-%Y, %h:%i', $post->timestamp) ."</td>[m
+ 							<td><p class='label label-success'>Published</p></td>[m
+ 							<td>";[m
+[36m@@ -40,7 +40,8 @@[m
+ 							 	}[m
+ 							 echo "</td>[m
+ 							<td align='center'>[m
+[31m-								<a href='#modal". $post->id_post ."' data-toggle='modal' class='btn btn-xs btn-warning'><i class='fa fa-trash'></i></a>[m
+[32m+[m								[32m<a href='". base_url('post/edit/'.$post->slug) ."' class='btn btn-info btn-sm'><i class='fa fa-pencil'></i></a>[m
+[32m+[m								[32m<a href='#modal". $post->id_post ."' data-toggle='modal' class='btn btn-sm btn-warning'><i class='fa fa-trash'></i></a>[m
+ 							</td>[m
+ 						</tr>";[m
+ 							[m
