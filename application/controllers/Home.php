@@ -12,7 +12,8 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$data = [];
-		$data['posts'] = $this->post_model->get_posts()->result();
+		$data['posts'] 		= $this->post_model->get_posts()->result();
+		$data['categories']	= $this->post_model->get_categories()->result();
 
 		$this->template->set('title','TAHUCode');
 		$this->template->load('master_template','content','home/index',$data);
