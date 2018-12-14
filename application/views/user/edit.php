@@ -14,23 +14,30 @@
 			</div>
 
 			<div class="form-group">
-				<label for="category">Categories</label>
-				<select name="category[]" id="category" size="7" multiple class="form-control">
-					<?php 
-						$cat = explode("|", $post['category']);
-						$index = 0;
-							
-						foreach ( $categories as $category) {
-								if ($category->category_name == $cat[$index++]) {
-									echo "<option value='". $category->category_name ."' selected>". $category->category_name ."</option>";
-								}else{
-									echo "<option value='". $category->category_name	 ."' >". $category->category_name ."</option>";
+				<div class="row">
+					<div class="col-xs-6">
+						<h4 for="category">Categories</h4>
+						<select name="category" id="category" class="form-control">
+							<?php 
+								foreach ($categories as $category) {
+									if ($category->category_name == $post['category']) {
+										echo "<option value='". $category->category_name ."' selected>". $category->category_name ."</option>";
+									}else{
+										echo "<option value='". $category->category_name ."'>". $category->category_name ."</option>";
+									}
 								}
-						}
-
-
-					 ?>
-				</select>
+							 ?>
+						</select>
+					</div>
+					<div class="col-xs-6">
+						<h4>Tags</h4>
+						<textarea name="tags" id="tags" class="form-control">
+						<?php							
+							echo $post['tags'];
+						 ?>						
+						</textarea>
+					</div>
+				</div>
 			</div>
 			<div class="form-group">
 				<h4>Header Image</h4>

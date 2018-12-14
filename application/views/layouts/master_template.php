@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>TAHUCode | <?php echo $title; ?></title>
 	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/bootstrap.css'); ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/cyborg.bootstrap.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/font-awesome-4.6.3/css/font-awesome.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/highlight/styles/monokai-sublime.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/custom/css.css'); ?>">

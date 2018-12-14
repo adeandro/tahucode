@@ -26,24 +26,32 @@
 				<textarea name="content" id="content" cols="30" rows="10" class="form-control"><?= set_value('content')?></textarea>
 			</div>
 			<div class="form-group">
-				<h4 for="category">Category :</h4>
-				<select name="category[]" multiple id="category" class="form-control" size="max-width: 200px;">
-					<?php
-						foreach ($categories->result() as $category) {
-							echo "<option value='". $category->category_name ."'>". $category->category_name ."</option>";
-						}
-					 ?>
-				</select>
+				<div class="row">
+					<div class="col-xs-6">
+						<h4 for="category">Category :</h4>
+						<select name="category" class="form-control" size="max-width: 200px;">
+							<?php
+								foreach ($categories->result() as $category) {
+									echo "<option value='". $category->category_name ."'>". $category->category_name ."</option>";
+								}
+							 ?>
+						</select>				
+					</div>
+						<div class="col-xs-6">
+						<h4 for="tags">Tags :</h4>
+						<textarea name="tags" id="tags" class="form-control" placeholder="Input tags here"></textarea>
+						<div class="small" style="color: red;">* Separate tags with ","</div>
+					</div>
+				</div>
 			</div>
 			<div class="form-group">
-				<h4>Choose header image	:</h4>
+				<h4>Choose thumbnail :</h4>
 				<input type="file" name="header_image" class="form-control">
 			</div>
 			<br>
 
-			<div class="form-group">
-				<button class="btn btn-info" name="back"></i> Back & save to draft</button>
-				<button class="btn btn-primary" type="submit"><i class="fa fa-arrow-up"></i> Publish</button>
+			<div class="form-group">				
+				<button class="btn btn-primary" type="submit"><i class="fa fa-arrow-up"></i> Save</button>
 				<!-- <button class="btn btn-default">previev</button> -->
 			</div>
 		</form>

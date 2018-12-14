@@ -52,6 +52,7 @@ class User extends CI_Controller {
 		// set validation 
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('content', 'Content', 'required');
+		$this->form_validation->set_rules('tags', 'Tags', 'required');
 		// $this->form_validation->set_rules('category', 'Category', 'required');
 		// $this->form_validation->set_rules('header_image', 'Header Image', 'required');
 
@@ -77,12 +78,13 @@ class User extends CI_Controller {
 				$data = [
 						'title' 		=> $this->input->post('title'),
 						'content' 		=> $this->input->post('content'),
-						'category' 		=> implode("|", $this->input->post('category')),
+						'category' 		=> $this->input->post('category'),
 						'timestamp'		=> now(),
 						'published' 	=> 1,
 						'id_user' 		=> $this->session->userdata('sess_id'),
 						'slug' 			=> url_title($this->input->post('title'),'-',TRUE).".html",
-						'header_image'	=> $file_info['file_name']
+						'header_image'	=> $file_info['file_name'],
+						'tags'			=> $this->input->post('tags')
 					];
 
 					if ($this->post_model->save_post($data) == TRUE) {
@@ -117,8 +119,9 @@ class User extends CI_Controller {
 		$update_data = [
 			'title' 	=> $this->input->post('title'),
 			'content'	=> $this->input->post('content'),
-			'category'	=> implode("|", $this->input->post('category')),
-			'slug'		=> url_title($this->input->post('title'),'-', TRUE).".html"
+			'category'	=> $this->input->post('category'),
+			'slug'		=> url_title($this->input->post('title'),'-', TRUE).".html",
+			'tags' 		=> $this->input->post('tags')
 		];
 
 		if ($this->post_model->update_post($update_data, $slug)) {

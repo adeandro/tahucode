@@ -36,7 +36,7 @@ class Post_model extends CI_Model {
 	{
 		$this->db->order_by('id_post', 'DESC');
 		$this->db->limit(1,0);
-		$this->db->like('category', $category);
+		$this->db->where('category', $category);
 		$data = $this->db->get('posts');
 		return $data;
 	}
@@ -44,8 +44,8 @@ class Post_model extends CI_Model {
 	public function get_posts_by_category_name($category)
 	{
 		$this->db->order_by('id_post', 'DESC');
-		$this->db->limit(5,2);
-		$this->db->like('category', $category);
+		$this->db->limit(5,1);
+		$this->db->where('category', $category);
 		$data = $this->db->get('posts');
 		return $data;
 	}

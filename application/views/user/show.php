@@ -4,7 +4,7 @@
 	<i class="fa fa-tags"></i>Tags
 	<?php 	
 
-	$categories = explode("|", $post['category']);
+	$categories = explode(",", $post['tags']);
 
 	foreach ($categories as $category) {
 		echo "<span class='label label-success'>". $category ."</span> ";

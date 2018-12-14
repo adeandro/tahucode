@@ -20,6 +20,7 @@
 				<th>Date</th>
 				<th>Pusblish</th>
 				<th>Categories</th>
+				<th>Tags</th>
 				<th>Action</th>
 			</tr>
 			<?php 
@@ -34,10 +35,12 @@
 							<td><a href='". base_url('post/show/'.$post->slug) ."'>". substr($post->title, 0,40) ."</a></td>
 							<td>". mdate('%d-%M-%Y, %h:%i', $post->timestamp) ."</td>
 							<td><p class='label label-success'>Published</p></td>
-							<td>";
-								foreach (explode("|", $post->category) as $categories) {
-							 		echo "<p class='label label-info'>". $categories ."</p> ";
+							<td>". $post->category ."</td>
+							 <td>";
+							 	foreach (explode(",", $post->tags) as $tags) {
+							 		echo "<p class='label label-info'>". $tags ."</p> ";
 							 	}
+
 							 echo "</td>
 							<td align='center'>
 								<a href='". base_url('post/edit/'.$post->slug) ."' class='btn btn-info btn-sm'><i class='fa fa-pencil'></i></a>

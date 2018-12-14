@@ -8,14 +8,17 @@
 			$cat_name = $category->category_name;
 			$last_post = $this->post_model->get_post_by_category_name($cat_name)->row_array();
 			$last_posts = $this->post_model->get_posts_by_category_name($cat_name)->result();
-			echo "<h4>". $cat_name ."</h4>";
+			
 			echo "<div class='well'>
+					<h3 style='font-weight: bold;'>". $cat_name ."</h3>
 				<div class='row'>
 					<div class='col-xs-6'>
 						<img class='img-responsive' src='./assets/img/posts/". $last_post['header_image'] ."' alt=''>
 						<div class='panel panel-default'>
 							<div class='panel-body'>
+								<h4>
 								". $last_post['title'] ."
+								</h4>
 							</div>
 							<div class='panel-footer'>
 								". mdate($format, $last_post['timestamp']) ."
@@ -28,8 +31,10 @@
 							echo "<div class='col-xs-6'>
 								<img class='img-responsive' src='./assets/img/posts/". $lasts->header_image ."' alt=''>
 								<div class='panel panel-default'>
-									<div class='panel-body'>
-										". $lasts->title ."
+									<div class='panel-body' style='min-height: 90px;'>
+										<h5>
+											". substr($lasts->title, 0,30) ."...
+										</h5>
 									</div>
 									<div class='panel-footer'>
 										". mdate($format, $lasts->timestamp) ."
@@ -46,7 +51,22 @@
 		?>
 	</div>	
 	<div class="col-md-3">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis beatae iste sapiente tempora quae veniam dolor reprehenderit repellat laborum eveniet sed dicta necessitatibus magni labore, asperiores consequatur iusto distinctio ea.
+		<div class="list-group">
+		<h4>All Category</h4>
+			<?php 
+
+			foreach ($categories as $category) {
+				echo "<div class='list-group-item'>". $category->category_name ."</div>";
+			}
+
+			 ?>
+		</div>
+		<div>
+			<h4>Lates Posts</h4>
+			<div class="well">
+				
+			</div>
+		</div>
 	</div>
 </div>
 
