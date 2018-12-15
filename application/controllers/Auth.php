@@ -40,7 +40,7 @@ class Auth extends CI_Controller {
 		}
 
 		$this->template->set('title','Login');
-		$this->template->load('master_template','content','auth/login', $data);
+		$this->template->load('auth_template','content','auth/login', $data);
 	}
 
 }

@@ -7,7 +7,7 @@
 <div class="well">
 <div class="form-group">
 	<a href="<?php echo base_url('post/create') ?>" class="btn btn-success"><i class="fa fa-plus"></i> Create new post</a>
-	<a href="<?php echo base_url('post/category') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add new category</a>
+	<a href="<?php echo base_url('post/category') ?>" class="btn btn-primary"><i class="fa fa-clone"></i> Manage category</a>
 </div>
 	<div class="panel panel-default">
 		<div class="panel-heading">

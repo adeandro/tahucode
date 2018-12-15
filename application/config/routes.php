@@ -66,6 +66,10 @@ $route['category/save']				= 'user/category_save';
 $route['category/edit']				= 'user/category_edit';
 $route['category/delete/(:num)']	= 'user/category_delete/$1';
 
+// home route
+$route['p/category/(:any)']			= 'home/category/$1';
+$route['s/(:any)']					= 'home/show/$1';
+
 $route['default_controller'] 		= 'home';
 $route['404_override']				= '';
 $route['translate_uri_dashes']		= FALSE;

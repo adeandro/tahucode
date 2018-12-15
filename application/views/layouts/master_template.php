@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>TAHUCode | <?php echo $title; ?></title>
 	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/bootstrap.css'); ?>">
-	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.7/css/cyborg.bootstrap.min.css'); ?>">
+	
 	<link rel="stylesheet" href="<?php echo base_url('assets/font-awesome-4.6.3/css/font-awesome.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/highlight/styles/monokai-sublime.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/custom/css.css'); ?>">
@@ -20,8 +20,35 @@
 		</div>
 	</nav>
 	<div class="container-fluid">
-	
-		<?php echo $content; ?>
+		<div class="row">
+			<div class='col-md-9'>
+				<?php echo $content; ?>
+			</div>	
+			<div class="col-md-3">
+				<div>
+					<h4>Lates Posts</h4>
+					<div class="list-group">
+						<?php 
+						foreach ($this->post_model->get_last_post()->result() as $last_posts) {
+							echo "<a href='". base_url('s/'.$last_posts->slug) ."' class='list-group-item'>". substr($last_posts->title, 0,33) ."</a>";
+						}
+						 ?>
+					</div>
+				</div>
+				<div class="list-group">
+				<h4>All Category</h4>
+					<?php 
+					$categories	= $this->post_model->get_categories()->result();
+
+					foreach ($categories as $category) {
+						echo "<a href='". base_url('p/category/'.$category->category_name) ."' class='list-group-item'>". $category->category_name ."</a>";
+					}
+
+					 ?>
+				</div>
+			</div>
+		</div>	
+		
 	</div>
 
 	<div class="footer">
