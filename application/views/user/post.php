@@ -58,6 +58,21 @@
 					</tr>";
 				}
 			 ?>
+			 <tr>
+			 	<td colspan="7" align="center">
+
+			 		<div class="btn-group">
+			 			<?php 
+
+			 			for ($i=1; $i <= $paging ; $i++) { 
+			 				echo "<a href='". base_url('user/post/'.$i) ."' class='btn btn-default'>". $i ."</a>";
+			 			}
+
+			 			 ?>
+			 		</div>
+			 		
+			 	</td>
+			 </tr>
 		</table>
 	</div>
 </div>

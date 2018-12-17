@@ -69,6 +69,10 @@ $route['category/delete/(:num)']	= 'user/category_delete/$1';
 // home route
 $route['p/category/(:any)']			= 'home/category/$1';
 $route['s/(:any)']					= 'home/show/$1';
+$route['p/(:num)']					= 'home/index/$1';
+
+//comment
+$route['s/(:any)/insert_comment'] 	= 'comments/insert_comment';	
 
 $route['default_controller'] 		= 'home';
 $route['404_override']				= '';

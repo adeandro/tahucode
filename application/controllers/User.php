@@ -28,7 +28,10 @@ class User extends CI_Controller {
 	public function post()
 	{
 		$data = [];
-		$data['posts'] = $this->post_model->get_posts();
+		$start = ceil(($this->uri->segment(3) * 5) / 2);
+		$end = $start + 5;
+		$data['posts'] 	= $this->post_model->get_posts($end, $start);
+		$data['paging'] = ceil($this->post_model->get_posts_paging()->num_rows() / 5);
 
 		$this->template->set('title', 'Post');
 		$this->template->load('user_template','content','user/post', $data);

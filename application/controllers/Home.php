@@ -23,7 +23,9 @@ class Home extends CI_Controller {
 	{
 		$data = [];
 		$data['post'] 		= $this->post_model->get_post_by_slug($slug)->row_array();
-		$data['last_post'] = $this->post_model->get_last_post()->result();		
+		$data['last_post'] 	= $this->post_model->get_last_post()->result();
+		$id_post 			= $data['post']['id_post'];
+		$data['comments']	= $this->post_model->get_comments_by_id_post($id_post)->result();
 
 		$this->template->set('title', $slug);
 		$this->template->load('master_template','content','home/show',$data);

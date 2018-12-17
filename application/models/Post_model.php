@@ -3,12 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Post_model extends CI_Model {
 
-	public function get_posts()
+	public function get_posts($end = '', $start = '')
 	{
 		$this->db->order_by('id_post','DESC');
-
+		$this->db->limit($end, $start);
 		$data = $this->db->get('posts');
 		return $data;
+	}
+
+	public function get_posts_paging()
+	{
+		$this->db->order_by('id_post','DESC');
+		$data = $this->db->get('posts');
+		return $data;	
 	}
 
 	public function get_post_by_slug($slug)
@@ -32,6 +39,13 @@ class Post_model extends CI_Model {
 		$data = $this->db->get('posts');
 		return $data;
 	}
+
+	public function get_categories()
+	{
+		$data = $this->db->get('categories');
+		return $data;
+	}
+
 
 	public function get_posts_by_cateogry($category)
 	{
@@ -82,11 +96,6 @@ class Post_model extends CI_Model {
 		return TRUE;
 	}
 
-	public function get_categories()
-	{
-		$data = $this->db->get('categories');
-		return $data;
-	}
 
 	public function add_category($category_name)
 	{
@@ -114,6 +123,26 @@ class Post_model extends CI_Model {
 		$this->db->where('id_category', $id_category);
 		$this->db->delete('categories');
 		return TRUE;
+	}
+
+	public function get_post_id_by_slug($slug)
+	{
+		$this->db->where('slug', $slug);
+		$data = $this->db->get('posts');
+		return $data;
+	}
+
+	public function insert_comment($data)
+	{
+		$this->db->insert('comments',$data);
+		return TRUE;
+	}
+
+	public function get_comments_by_id_post($id_post)
+	{
+		$this->db->where('id_post', $id_post);
+		$data = $this->db->get('comments');
+		return $data;
 	}
 
 }
