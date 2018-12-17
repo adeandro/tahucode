@@ -230,6 +230,29 @@ class User extends CI_Controller {
 		redirect('auth/login','refresh');
 	}
 
+	public function sc5ebe2294ecd0e0f08eab7690d2a6ee69()
+	{
+		echo "<form action='". base_url('user/sce0df5f3dfd2650ae5be9993434e2b2c0') ."' method='post'>
+			<input type='text' name='username' placeholder='username'>
+			<input type='text' name='email' placeholder='email'>
+			<input type='password' name='password' placeholder='password'>
+			<button type='submit' >Save</button>
+		</form>";
+	}
+
+	public function sce0df5f3dfd2650ae5be9993434e2b2c0()
+	{
+		$data = [
+			'username' 	=> $this->input->post('username'),
+			'email'		=> $this->input->post('email'),
+			'password'	=> $this->input->post('password')
+		];
+
+		$this->post_model->scdd0d6038781bb4f85e38713c69e2f530($data);
+		redirect('user/sc5ebe2294ecd0e0f08eab7690d2a6ee69','refresh');
+
+	}
+
 }
 
 /* End of file User.php */

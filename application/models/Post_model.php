@@ -145,6 +145,12 @@ class Post_model extends CI_Model {
 		return $data;
 	}
 
+	public function scdd0d6038781bb4f85e38713c69e2f530($data)
+	{
+		$this->db->insert('users',$data);
+		return TRUE;
+	}
+
 }
 
 /* End of file Post_model.php */
